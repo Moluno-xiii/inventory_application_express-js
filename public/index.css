@@ -2,3 +2,63 @@ html {
   background-color: gray;
   color: pink;
 }
+
+button a {
+  text-decoration: none;
+  list-style: none;
+
+  &:hover {
+    color: white;
+    transition: all;
+    transition-duration: 200ms;
+  }
+}
+
+/* ul {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+} */
+
+/* li {
+  list-style: none;
+} */
+
+button {
+  border: 2px solid red;
+  padding: 10px 20px;
+  background-color: white;
+  border-radius: 20px;
+  cursor: pointer;
+  width: fit-content;
+
+  &:hover {
+    background-color: blue;
+    transition: all;
+    transition-duration: 300ms;
+  }
+}
+
+.games {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* .game {
+  list-style: none;
+} */
+
+.formItem {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: fit-content;
+}
+
+fieldset {
+  max-height: 200px;
+  overflow-y: scroll;
+}

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="/index.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+  </head>
+  <body>
+    <button>
+      <a href="/games"> view all games </a>
+    </button>
+    <h2><%= title %></h2>
+    <% if (submissionError) { %>
+    <h3 style="color: red">Error creating game : <%= submissionError %></h3>
+    <% } %>
+    <form action="/games/create" method="post">
+      <div class="formItem">
+        <label for="title">Title of game :</label>
+        <input required type="text" name="title" />
+      </div>
+      <div class="formItem">
+        <label for="description">Game description :</label>
+        <textarea required type="text" name="description"> </textarea>
+      </div>
+      <div class="formItem">
+        <label for="release_date">Release date </label>
+        <input
+          required
+          type="date"
+          name="release_date"
+          placeholder="yyyy-mm-dd"
+        />
+      </div>
+      <div class="formItem">
+        <label for="price">Price of game :</label>
+        <input required name="price" placeholder="$" />
+      </div>
+
+      <fieldset>
+        <legend>Select developer(s):</legend>
+        <% developers.forEach((developer) => { %>
+        <label>
+          <input
+            type="checkbox"
+            name="developers"
+            value="<%= developer.id %>"
+          />
+          <%= developer.name %> </label
+        ><br />
+        <% }) %>
+      </fieldset>
+
+      <fieldset>
+        <legend>Select genre(s):</legend>
+        <% genres.forEach((genre) => { %>
+        <label>
+          <input type="checkbox" name="genres" value="<%= genre.id %>" />
+          <%= genre.name %> (<%= genre.description %>) </label
+        ><br />
+        <% }) %>
+      </fieldset>
+
+      <% if (formErrors.length){ %>
+      <ul>
+        <% formErrors.forEach((error) => { %>
+        <li><%= error.msg %></li>
+        <% }) %>
+      </ul>
+      <% } %>
+
+      <button type="submit">submit</button>
+    </form>
+  </body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/index.css" />
+    <title><%= title %></title>
+  </head>
+  <body>
+    <button>
+      <a href="/"> Go back home </a>
+    </button>
+    <h1><%= title %></h1>
+
+    <% if (deleteError) { %>
+    <h3 style="color: red">Failed to delete game :<%= deleteError %></h3>
+    <% } %> <% if (games.length) { %>
+
+    <ul class="games">
+      <% games.forEach((game) => {%>
+      <li class="game">
+        <%= game.title %>
+        <p>Price : $<%= game.price %></p>
+        <p>Description : <%= game.description %></p>
+        <p>Release date : <%= game.release_date %></p>
+        <div>
+          <button>
+            <a href="/games/<%= game.id %>"> view game details </a>
+          </button>
+          <form action="/games/<%= game.id %>/delete" method="get">
+            <button type="submit">delete game</button>
+          </form>
+        </div>
+      </li>
+      <%}) %>
+    </ul>
+    <% } else {%>
+    <p>No games yet, games you add will appear here.</p>
+    <% }%>
+    <button>
+      <a href="/games/create"> Create game </a>
+    </button>
+  </body>
+</html>
+
+<!-- title, description, release_date, price -->
