@@ -1,9 +1,23 @@
 const { Router } = require("express");
+const { getDevelopers } = require("../controllers/developersController");
 
 const developersRoute = Router();
 
-developersRoute.get("/", (req, res) => {
-  res.render("developers", { title: "Developers route" });
+developersRoute.get("/", async (req, res) => {
+  try {
+    const developers = await getDevelopers();
+    res.render("developers", {
+      title: "Developers route",
+      developers,
+      error: "",
+    });
+  } catch (err) {
+    res.render("developers", {
+      title: "Developers route",
+      developers: [],
+      error: err.message,
+    });
+  }
 });
 
 developersRoute.get("/create", (req, res) => {

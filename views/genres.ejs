@@ -11,5 +11,14 @@
       <a href="/"> Go back home </a>
     </button>
     <h1><%= title %></h1>
+    <ul style="display: flex; flex-direction: column; gap: 10px">
+      <% genres.forEach((genre) => { %>
+      <li style="display: flex; flex-direction: column; gap: 5px">
+        <p style="color: blueviolet; margin: 0px"><%= genre.name %></p>
+        <p style="margin: 0px">Description : <%= genre.description %></p>
+      </li>
+
+      <%})%>
+    </ul>
   </body>
 </html>

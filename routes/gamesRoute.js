@@ -7,6 +7,7 @@ const {
   createGame,
   getAllGames,
   deleteGame,
+  getGame,
 } = require("../controllers/gamesController");
 
 const gamesRoute = Router();
@@ -80,9 +81,21 @@ gamesRoute.post(
   }
 );
 
-gamesRoute.get("/:id", (req, res) => {
-  const gameId = req.params.id;
-  res.send(`view specific game, game id : ${gameId}`);
+gamesRoute.get("/:id", async (req, res) => {
+  try {
+    const game = await getGame(req.params.id);
+    res.render("game", {
+      title: "Game data",
+      error: "",
+      game,
+    });
+  } catch (err) {
+    res.render("game", {
+      title: "Game Data",
+      error: err.message,
+      game: {},
+    });
+  }
 });
 
 gamesRoute.get("/:id/update", (req, res) => {

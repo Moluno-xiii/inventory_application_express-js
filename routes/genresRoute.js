@@ -1,19 +1,18 @@
 const { Router } = require("express");
+const { getGenres } = require("../controllers/genresController");
 
 const genresRoute = Router();
 
-genresRoute.get("/", (req, res) => {
-  res.render("genres", { title: "Genres route" });
+genresRoute.get("/", async (req, res) => {
+  const genres = await getGenres();
+  res.render("genres", { title: "Genres route", genres });
 });
 
 genresRoute.get("/create", (req, res) => {
   res.send("Create genre form");
 });
 
-genresRoute.post("/create", (req, res) => {
-  const data = req.body;
-  console.log(data);
-});
+genresRoute.post("/create", (req, res) => {});
 
 genresRoute.get("/:id", (req, res) => {
   const genreId = req.params.id;

@@ -11,5 +11,22 @@
       <a href="/"> Go back home </a>
     </button>
     <h1><%= title %></h1>
+
+    <% if (error) { %>
+    <p><%= error %></p>
+    <%} else {%>
+
+    <ul>
+      <% developers.forEach((developer) => { %>
+      <li>
+        <p>Name : <%= developer.name %></p>
+        <p>Country : <%= developer.country %></p>
+      </li>
+      <form action="/developers/<%= developer.id %>" method="get">
+        <button type="submit">view developer</button>
+      </form>
+      <%})%>
+    </ul>
+    <% } %>
   </body>
 </html>

@@ -34,7 +34,7 @@ async function createGame(data) {
       data.price,
     ]
   );
-  const gameId = rows[0].id;
+  const gameId = Number(rows[0].id);
 
   for (const genreId of genreList) {
     await pg.query(
@@ -59,4 +59,59 @@ async function deleteGame(game_id) {
   }
 }
 
-module.exports = { getAllGames, createGame, deleteGame };
+// async function getGame(game_id) {
+//   const { rows } = await pg.query("SELECT * FROM games WHERE id = $1", [
+//     game_id,
+//   ]);
+//   console.log("game : ", rows);
+//   const { rows: developers } = await pg.query(
+//     "SELECT * FROM game_developers WHERE game_id = $1",
+//     [rows[0].id]
+//   );
+//   console.log(rows[0].id);
+//   console.log("game_developers : ", developers);
+
+//   const { rows: genres } = await pg.query(
+//     "SELECT * FROM game_genres WHERE game_id = $1",
+//     [rows[0].id]
+//   );
+//   console.log("genres : ", genres);
+//   return rows;
+// }
+
+async function getGame(game_id) {
+  const { rows: gameRows } = await pg.query(
+    "SELECT * FROM games WHERE id = $1",
+    [game_id]
+  );
+  const game = gameRows[0];
+  if (!game) throw new Error("Game not found");
+
+  const { rows: developers } = await pg.query(
+    `
+    SELECT d.*
+    FROM developers d
+    JOIN game_developers gd ON gd.developer_id = d.id
+    WHERE gd.game_id = $1
+  `,
+    [game.id]
+  );
+
+  const { rows: genres } = await pg.query(
+    `
+    SELECT g.*
+    FROM genres g
+    JOIN game_genres gg ON gg.genre_id = g.id
+    WHERE gg.game_id = $1
+  `,
+    [game.id]
+  );
+
+  return {
+    ...game,
+    developers,
+    genres,
+  };
+}
+
+module.exports = { getAllGames, createGame, deleteGame, getGame };

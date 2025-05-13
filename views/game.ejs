@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/index.css" />
+    <title><%= title %></title>
+  </head>
+  <body>
+    <button>
+      <a href="/"> Go back home </a>
+    </button>
+    <h1><%= title %></h1>
+
+    <% if (error) { %>
+    <h3 style="color: red">Failed to load game :<%= error %></h3>
+    <% } else { %>
+    <p>Title : <%= game.title %></p>
+    <p>Description : <%= game.description %></p>
+    <p>Price : $<%= game.price %></p>
+    <p>Release date : <%= game.release_date %></p>
+
+    <ul>
+      <p style="color: blue">Game developers</p>
+      <% game.developers.forEach((developer) => { %>
+      <li>
+        <p>Developer name : <%= developer.name %></p>
+        <p>Developer country : <%= developer.country %></p>
+        <p>Developer date_joined : <%= developer.date_joined %></p>
+      </li>
+      <% }) %>
+    </ul>
+
+    <ul>
+      <p style="color: blue">Game genres</p>
+      <% game.genres.forEach((genre) => { %>
+      <li>
+        <p><%= genre.name %> : <%= genre.description %></p>
+      </li>
+      <% }) %>
+    </ul>
+    <% } %>
+  </body>
+</html>
